@@ -60,9 +60,9 @@ def main():
 
     <p>
     Whether you're visiting somewhere for the first time, the hundredth time, or virtually, there's no better guide than a book.
-    Find notable books set in cities or countries you would like to explore.
-
-    Happy reading! :)
+    Find notable books set in cities or countries you would like to explore. 
+    
+    Filter results by sidebar (arrow top left). Happy reading!
     </p>
     '''
 
