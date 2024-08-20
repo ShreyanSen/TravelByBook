@@ -61,7 +61,7 @@ def main():
     <p>
     There's no better guide than a book.
     Find notable books connected to places you'd like to explore. 
-    Filter results by sidebar (arrow top left).
+    Filter map and table results by sidebar (arrow top left).
     </p>
     '''
 
