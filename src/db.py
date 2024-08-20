@@ -124,7 +124,7 @@ class GeoBookJSONtoCSV:
         self.book_df = self.book_df.loc[~((self.book_df.title=='Marthandavarma') & (self.book_df.city=='Travancore'))]
 
         self.nan_author_pages_authors_dict = {'The Sicilian':'Mario Puzo',
-        'El Buscón':' Francisco de Quevedo',
+        'El Buscón':'Francisco de Quevedo',
         'A Fine Balance':'Rohinton Mistry',
         'Jasper Jones':'Craig Silvey',
         'Clear Light of Day':'Anita Desai',
@@ -133,7 +133,7 @@ class GeoBookJSONtoCSV:
         'Fortunata y Jacinta':'Benito Pérez Galdós' ,
         'The Tale of Genji':'Murasaki Shikibu',
         'Under the Eagle': 'Simon Scarrow',
-        'Lazarillo de Tormes':'Anonymous',
+        'Lazarillo de Tormes':'Unknown',
         'Aztec (novel)':'Gary Jennings',
         'The Coffee Trader':'David Liss',
         'Captain Alatriste':'Arturo Pérez-Reverte',
@@ -144,11 +144,16 @@ class GeoBookJSONtoCSV:
         'The Story of the Stone':'Cao Xueqin',
         'The Deer and the Cauldron':'Jin Yong',
         'The Orenda':'Joseph Boyden',
-        'The Black Coat':'Neamat Imam'}
+        'The Black Coat':'Neamat Imam',
+        'Chia Black Dragon':'Stephen Marley',
+        'Les Misérables':'Victor Hugo',
+        'The Tale of the Heike':'Unknown',
+        'Lymond Chronicles':'Dorothy Dunnett',
+        'Burr (novel)':'Gore Vidal'}
 
         for page in self.nan_author_pages_authors_dict:
             self.book_df.loc[self.book_df.page==page, 'author'] = self.nan_author_pages_authors_dict[page]
-        print(self.book_df.loc[self.book_df.page=='The Black Coat'])
+
     def group_by_address(self):
         self.book_df_group = self.book_df.groupby(['geocoded_address','lat','lon'])['title'].apply(list).reset_index()
         self.book_df_group['title_str'] =self.book_df_group.apply(lambda x: [str(t) for t in x.title], axis=1) # sometimes titles are not strings
