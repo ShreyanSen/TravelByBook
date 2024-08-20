@@ -89,7 +89,7 @@ class FetchWikiHNPages:
     
     """
 
-    def __init__(self, root_page="List_of_historical_novels", data_dir='data/whn_pages/'):
+    def __init__(self, root_page="List_of_historical_novels", data_dir='data/pagelists/whn_pages/'):
         self.llm = Ollama(model="llama3")
         self.wiki = wikipediaapi.Wikipedia('MyProjectName (merlin@example.com)', 'en')
         self.root_page = self.wiki.page(root_page)
@@ -276,9 +276,10 @@ class FetchBookerPages:
 
 
     def run(self):
-
+        self.data_dir = 'data/pagelists/booker_pages/'
         self.get_booker_table()
         self.xref_booker_pages()
+        self.write_booker_pages()
 
     def get_booker_table(self):
         """
@@ -308,6 +309,10 @@ class FetchBookerPages:
         self.booker_eligible_pages = [pg for pg in self.booker_eligible_pages if self.wiki.page(pg).exists()]
         self.booker_eligible_pages.sort()
 
+    def write_booker_pages(self):
+
+        with open(self.data_dir + "booker_pages.json", "w") as f:
+            json.dump(self.booker_eligible_pages, f)
 
 class WikiRead:
     """

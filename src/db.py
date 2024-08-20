@@ -4,26 +4,33 @@ import pandas as pd
 import numpy as np
 from geopy.geocoders import Nominatim
 import time
+from functools import partial
 
 class GeoBookJSONtoCSV:
 
-    def __init__(self, data_dir = 'data/json/'):
+    def __init__(self, data_dir = 'data/json/', db_dir = 'data/csv/'):
         self.data_dir = data_dir
+        self.db_dir = db_dir
         self.data_files = os.listdir(self.data_dir) # assumes pure directory of just processed book jsons
 
+    def update_book_df(self):
+
+        self.book_df = pd.read_csv(self.db_dir+'uncorrected_book_df.csv')
+        self.correct_book_df_errors()
+        self.write_book_df()
 
     def run_all(self):
 
         self.get_book_df()
         self.geolocate_books()
         self.correct_book_df_errors()
-        self.group_by_address()
-        self.write_csv()
+        # self.group_by_address() # not needed currently
+        self.write_book_df()
         
     def get_book_df(self):
         books_list = []
         for data in self.data_files:
-            with open(data_dir + data, 'r') as f:
+            with open(self.data_dir + data, 'r') as f:
                 book = json.load(f)
                 books_list.append(book)
         df = pd.DataFrame(books_list)
@@ -89,7 +96,10 @@ class GeoBookJSONtoCSV:
         self.book_df = pd.concat(self.df_list)
 
         self.book_df = self.select_best_location(self.book_df)
-        # TODO: the other two for this df, and the other two dfs
+
+        # log uncorrected book df; in other steps we load and update this 
+        self.book_df.to_csv(self.db_dir+'uncorrected_book_df.csv') 
+        
         
         return 
 
@@ -100,7 +110,7 @@ class GeoBookJSONtoCSV:
         Note: we have some duplicates because the same book was referenced under different page names on wikipedia
         """
         # drops a near duplicate of Dark Cloud
-        self.book_df = self.book_df.loc[~((self.book_df.title=='Dark Cloud') & (self.book_df.author=='N/A'))] 
+        self.book_df = self.book_df.loc[~((self.book_df.title=='Dark Cloud') & (self.book_df.page=='Aztec (book)'))] 
         # drops a near duplicate of Footsteps with an incorrect address
         self.book_df = self.book_df.loc[~((self.book_df.title=='Footsteps') & (self.book_df.address=='Batavia, Solano County, California, United States'))]
         # drops a near duplicate of The Known World with less accurate address
@@ -113,7 +123,32 @@ class GeoBookJSONtoCSV:
         # drops a near duplicate of Marthandavarma with less accurate address
         self.book_df = self.book_df.loc[~((self.book_df.title=='Marthandavarma') & (self.book_df.city=='Travancore'))]
 
+        self.nan_author_pages_authors_dict = {'The Sicilian':'Mario Puzo',
+        'El Buscón':' Francisco de Quevedo',
+        'A Fine Balance':'Rohinton Mistry',
+        'Jasper Jones':'Craig Silvey',
+        'Clear Light of Day':'Anita Desai',
+        'Prague (novel)':'Arthur Phillips',
+        'History of Wolves':'Emily Fridlund',
+        'Fortunata y Jacinta':'Benito Pérez Galdós' ,
+        'The Tale of Genji':'Murasaki Shikibu',
+        'Under the Eagle': 'Simon Scarrow',
+        'Lazarillo de Tormes':'Anonymous',
+        'Aztec (novel)':'Gary Jennings',
+        'The Coffee Trader':'David Liss',
+        'Captain Alatriste':'Arturo Pérez-Reverte',
+        'Ducks, Newburyport':'Lucy Ellmann',
+        'Woodstock (novel)':'Sir Walter Scott',
+        'The Leopard':'Giuseppe Tomasi di Lampedusa',
+        "Barnaby Rudge: A Tale of the Riots of 'Eighty":'Charles Dickens',
+        'The Story of the Stone':'Cao Xueqin',
+        'The Deer and the Cauldron':'Jin Yong',
+        'The Orenda':'Joseph Boyden',
+        'The Black Coat':'Neamat Imam'}
 
+        for page in self.nan_author_pages_authors_dict:
+            self.book_df.loc[self.book_df.page==page, 'author'] = self.nan_author_pages_authors_dict[page]
+        print(self.book_df.loc[self.book_df.page=='The Black Coat'])
     def group_by_address(self):
         self.book_df_group = self.book_df.groupby(['geocoded_address','lat','lon'])['title'].apply(list).reset_index()
         self.book_df_group['title_str'] =self.book_df_group.apply(lambda x: [str(t) for t in x.title], axis=1) # sometimes titles are not strings
@@ -123,9 +158,9 @@ class GeoBookJSONtoCSV:
         
         return
 
-    def write_csv(self, csv_out_dir = 'data/csv/'):
-        self.book_df.to_csv(csv_out_dir+'book_db.csv')
-        self.book_df_group.to_csv(csv_out_dir+'books_per_coord_db.csv')
+    def write_book_df(self):
+        self.book_df.to_csv(self.db_dir+'book_db.csv')
+        # self.book_df_group.to_csv(self.db_dir+'books_per_coord_db.csv') # no longer needed
 
     def select_best_location(self, df):
         df = df.assign(best_location=None)
