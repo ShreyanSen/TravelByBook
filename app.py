@@ -86,6 +86,17 @@ def main():
 
     dynamic_filters.display_df()
 
+    credits = '''
+    <hr>
+    <p><small>
+    How it's made: https://github.com/ShreyanSen/TravelByBook <br>
+    Patronize me: https://buymeacoffee.com/shreyansen <br>
+    This app powered by AI-assisted human effort <br>
+    </small></p>
+    '''
+
+    st.markdown(credits, unsafe_allow_html=True)
+
 def group_by_address(book_df):
     book_df_group = book_df.groupby(['Location','Lat','Lon'])['Book'].apply(list).reset_index()
     book_df_group['Book_str'] =book_df_group.apply(lambda x: [str(t) for t in x.Book], axis=1) # sometimes Books are not strings
