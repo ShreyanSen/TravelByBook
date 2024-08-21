@@ -6,6 +6,17 @@ import geopandas as gpd
 from streamlit_dynamic_filters import DynamicFilters
 
 def main():
+
+    st.set_page_config(
+        page_title="Travel By Book",
+        page_icon="📚",
+        layout="wide",
+        initial_sidebar_state="auto",
+        menu_items={
+            'Report a bug': "https://github.com/ShreyanSen/TravelByBook",
+            'About': "https://github.com/ShreyanSen/TravelByBook"
+        }
+    )
     style = "<style> body * {text-align: center;}</style>"
     st.markdown(style, unsafe_allow_html=True)
 
