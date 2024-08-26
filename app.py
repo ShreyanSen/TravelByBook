@@ -99,7 +99,7 @@ def main():
     credits = '''
     <hr>
     <p><small><small>
-    Errors? Book recs? Write to travelbybookapp@gmail.com <br>
+    Errors? Book recs? Write to: travelbybookapp@gmail.com <br>
     Patronize me: https://buymeacoffee.com/shreyansen <br>
     This app powered by AI-assisted human effort <br>
     </small></small></p>
