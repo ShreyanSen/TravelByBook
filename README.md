@@ -4,7 +4,7 @@ This repo includes data, an AI-powered data generation pipeline, and streamlit f
 
 ## Description of Travel By Book
 
-Travel By Book was born while traveling. I was sitting in a cafe in Penang, reading Tan Twan Eng's The House of Doors. The book is set in Penang and tells the story of my favorite author's own time in Penang. Tan is a Penang local, and his book's rich descriptions of Penang's history, society, and architecture opened my eyes what was around me.
+Travel By Book was born while traveling. I was sitting in a cafe in Penang, reading Tan Twan Eng's The House of Doors. The book is set in Penang and tells the story of my favorite author's own time in Penang. Tan is a Penang local, and his book's rich descriptions of Penang's history, society, and architecture opened my eyes to what was around me.
 
 Wouldn't it be nice, I thought, to be able to do this anywhere? Of course, the best way is to do exactly what I did. Go to a local bookstore, make friends with the shopkeeper, and ask for the local treatment. But, what's your second best option? I thought it would be nice to have a database of books that have some connection to places. But how would I get the right books, and how would I assess where they are set?
 
