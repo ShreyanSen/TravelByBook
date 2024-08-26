@@ -60,3 +60,5 @@ I wanted to make this process as automated as I could, but I found there were ma
 Because of these mistakes, I added a function that lets me make adjustments to the final db. This is basically the same as overwriting the db "by hand" but in a way that's tracked and reproducible. 
 
 LLMs are fantastic and there is no way I'd sort through 600 wikipedia pages myself creating this database. But they are not perfect and they do not replace the fine touch of human labor, nor do they account for taste. Because of this, I'll keep this database open to suggestions for new books (or book lists) to include, and open to crowdsourced feedback on errors in the database I can correct manually. Over time, we should be able to catch the issues and make improvements. The machine rough cut a nice chunk of stone for us, and now comes gentle polishing. 
+
+Send feedback and suggestions to: travelbybookapp@gmail.com

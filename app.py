@@ -13,7 +13,7 @@ def main():
         layout="wide",
         initial_sidebar_state="auto",
         menu_items={
-            'Report a bug': "https://github.com/ShreyanSen/TravelByBook",
+            'Report a bug': "travelbybookapp@gmail.com",
             'About': "https://github.com/ShreyanSen/TravelByBook"
         }
     )
@@ -101,6 +101,7 @@ def main():
     <hr>
     <p><small><small>
     How it's made: https://github.com/ShreyanSen/TravelByBook <br>
+    Errors? Book recs? Write to travelbybookapp@gmail.com <br>
     Patronize me: https://buymeacoffee.com/shreyansen <br>
     This app powered by AI-assisted human effort <br>
     </small></small></p>
