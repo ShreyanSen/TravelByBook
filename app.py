@@ -99,11 +99,11 @@ def main():
 
     credits = '''
     <hr>
-    <p><small>
+    <p><small><small>
     How it's made: https://github.com/ShreyanSen/TravelByBook <br>
     Patronize me: https://buymeacoffee.com/shreyansen <br>
     This app powered by AI-assisted human effort <br>
-    </small></p>
+    </small></small></p>
     '''
 
     st.markdown(credits, unsafe_allow_html=True)
